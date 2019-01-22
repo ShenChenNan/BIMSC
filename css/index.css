@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'iconfont';
+    src: url('../iconfonts/iconfont.eot');
+    src: url('../iconfonts/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../iconfonts/iconfont.woff2') format('woff2'),
+    url('../iconfonts/iconfont.woff') format('woff'),
+    url('../iconfonts/iconfont.ttf') format('truetype'),
+    url('../iconfonts/iconfont.svg#iconfont') format('svg');
+}
+
+body {
+    width: 1937px;
+    height: 1107px;
+    background: url("../images/background.jpg") no-repeat;
+}
+
+.title {
+    width: 900px;
+    height: 135px;
+    border-bottom: 3px solid #fff;
+    margin: 100px auto 0;
+    line-height: 135px;
+    text-align: center;
+    font-size: 56px;
+    font-weight: 700;
+    color: #fff;
+}
+
+img {
+    margin: -35px 870px 0;
+}
+
+.login {
+    width: 690px;
+    height: 410px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.7);
+    margin: 30px auto;
+    padding-top: 30px;
+}
+
+.username, .password {
+    width: 480px;
+    height: 80px;
+    border: 1px solid #9E9B99;
+    background-color: #fff;
+    border-radius: 10px;
+    line-height: 40px;
+    position: relative;
+}
+
+.username {
+    margin: 30px auto 28px;
+}
+
+.password {
+    margin: 0 auto;
+}
+
+.input-u, .input-p {
+    width: 300px;
+    height: 40px;
+    border: none;
+    font-size: 18px;
+    outline: none;
+    position: absolute;
+    top: 20px;
+    left: 80px;
+}
+
+.icon1, .icon2, .visible {
+    font-family: "iconfont";
+    font-style: normal;
+    font-size: 40px;
+    color: #575A63;
+    position: absolute;
+    top: 20px;
+}
+
+.icon1 {
+    left:30px;
+}
+
+.icon2 {
+    left:26px;
+}
+
+.visible {
+    left:410px;
+}
+
+.icon1 {
+    font-size: 30px;
+}
+
+.visible:hover {
+    color: #275DA7;
+}
+
+.password1 {
+    width: 480px;
+    height: 35px;
+    margin-top: 30px;
+    margin-left: 111px;
+    font-size: 18px;
+    color: #575A63;
+    font-weight: 700;
+}
+
+.remember {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.forget {
+    float: right;
+    color: #575A63;
+}
+
+.forget:hover {
+    color: #275DA7;
+}
+
+.login1 {
+    width: 304px;
+    height: 70px;
+    border-radius: 18px;
+    background-color: #275DA7;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 70px;
+}
+
+.login1 a {
+    display: block;
+    font-size: 30px;
+    color: #fff;
+    text-decoration: none;
+}
