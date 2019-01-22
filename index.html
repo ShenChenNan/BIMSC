@@ -6,47 +6,13 @@
     <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <!--<meta http-equiv="X-UA-Compatible" content="ie=edge">-->
     <title>BIM与智慧城市技术研究院</title>
+    <script src="./js/jquery-3.3.1.min.js"></script>
 </head>
 
 <body>
-    1.新建类文件
-    .Net Framework 4.6.1
-
-    2.解决方案平台
-    x64
-
-    3.项目属性
-    生成/输出路径：D:\Work\DLLs
-    因为输出路径不在MS安装目录中，所以需要配置MS加载插件的环境变量
-    C:\Program Files\Bentley\MicroStation CONNECT Edition\MicroStation\config\appl中添加myDllPath.cfg，内容为：
-    MS_ADDINPATH > D:/Work/DLLs
-    MS_ADDIN_DEPENDENCYPATH > D:/Work/DLLs
-    #_USTN_REQUIREDAPPS > 01test.dll //设置需要自动加载的dll
-
-    调试/启动外部程序：microstation.exe
-
-    4.添加引用
-    引用属性/复制本地：false
-
-    5.主函数入口
-    public sealed class HelloWorldAddin : AddIn
-    {
-    public static HelloWorldAddin addin = null;
-    public HelloWorldAddin(IntPtr mdlDescriptor) : base(mdlDescriptor)
-    {
-    addin = this;
-    }
-
-    protected override int Run(string[] commandLine)
-    {
-    return 0;
-    }
-    }
-
-    6.添加命令
-    步骤：
-    1.在当前项目中添加command.xml文件
-    2.完成command.xml
+    1.新建类文件 .Net Framework 4.6.1 2.解决方案平台 x64 3.项目属性 生成/输出路径：D:\Work\DLLs 因为输出路径不在MS安装目录中，所以需要配置MS加载插件的环境变量 C:\Program Files\Bentley\MicroStation CONNECT Edition\MicroStation\config\appl中添加myDllPath.cfg，内容为： MS_ADDINPATH > D:/Work/DLLs MS_ADDIN_DEPENDENCYPATH
+    > D:/Work/DLLs #_USTN_REQUIREDAPPS > 01test.dll //设置需要自动加载的dll 调试/启动外部程序：microstation.exe 4.添加引用 引用属性/复制本地：false 5.主函数入口 public sealed class HelloWorldAddin : AddIn { public static HelloWorldAddin addin = null; public HelloWorldAddin(IntPtr mdlDescriptor)
+    : base(mdlDescriptor) { addin = this; } protected override int Run(string[] commandLine) { return 0; } } 6.添加命令 步骤： 1.在当前项目中添加command.xml文件 2.完成command.xml
     <?xml version="1.0" encoding="utf-8" ?>
     <KeyinTree xmlns="http://www.bentley.com/schemas/1.0/MicroStation/AddIn/KeyinTree.xsd">
         <RootKeyinTable ID="root">
@@ -71,8 +37,7 @@
             <KeyinHandler Keyin="HelloWorld List Open" Function="HelloWorld.KeyIn.CmdOpen" />
         </KeyinHandlers>
     </KeyinTree>
-    3.设置command.xml属性，高级/生成操作(Embeded Resource)："嵌入资源"
-    4.用文本编译器，打开当前项目的配置文件.csproj，修改
+    3.设置command.xml属性，高级/生成操作(Embeded Resource)："嵌入资源" 4.用文本编译器，打开当前项目的配置文件.csproj，修改
     <EmbeddedResource Include="command.xml">
         <LogicalName>CommandTable.xml</LogicalName>
         <SubType>Designer</SubType>
