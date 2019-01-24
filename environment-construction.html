@@ -1,0 +1,181 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>开发环境搭建</title>
+    <meta name="description" content="Bentley开发环境搭建">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <!-- Left Panel -->
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="menu-title">Bentley开发</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children">
+                        <a href="forms-advanced.html" >开发环境搭建</a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside><!-- /#left-panel -->
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+
+        <!-- Header-->
+        <header id="header" class="header">
+            <div class="top-left">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Logo"></a>
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="header-menu">
+                    <div class="header-left">
+                        <button class="search-trigger"><i class="fa fa-search"></i></button>
+                        <div class="form-inline">
+                            <form class="search-form">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Header-->
+
+        <div class="breadcrumbs">
+            <h4>开发环境搭建</h4>
+        </div>
+
+        <div class="content">
+            <div class="animated fadeIn">
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>1.新建类文件</strong>
+                            </div>
+                            <p>.Net Framework 4.6.1</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>2.解决方案平台</strong>
+                            </div>
+                            <p>x64</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>3.项目属性</strong>
+                            </div>
+                            <p>生成/输出路径：D:\Work\DLLs</p>
+                            <p>因为输出路径不在MS安装目录中，所以需要配置MS加载插件的环境变量</p>
+                            <p>C:\Program Files\Bentley\MicroStation CONNECT Edition\MicroStation\config\appl中添加myDllPath.cfg，内容为：<br>
+                                MS_ADDINPATH > D:/Work/DLLs<br>
+                                MS_ADDIN_DEPENDENCYPATH > D:/Work/DLLs<br>
+                                #_USTN_REQUIREDAPPS > 01test.dll    //设置需要自动加载的dll</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>4.添加引用</strong>
+                            </div>
+                            <p>引用属性/复制本地：false</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>5.主函数入口</strong>
+                            </div>
+                            <p>public sealed class HelloWorldAddin : AddIn <br>
+                                { <br>
+                                public static HelloWorldAddin addin = null;<br>
+                                public HelloWorldAddin(IntPtr mdlDescriptor) : base(mdlDescriptor)<br>
+                                {<br>
+                                addin = this;<br>
+                                }<br>
+
+                                protected override int Run(string[] commandLine)<br>
+                                {<br>
+                                return 0;<br>
+                                }<br>
+                                }</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>6.添加命令</strong>
+                            </div>
+                            <p>
+                                步骤：<br>
+                                1.在当前项目中添加command.xml文件 <br>
+                                2.完成command.xml <br>
+                            <pre>
+    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;KeyinTree xmlns="http://www.bentley.com/schemas/1.0/MicroStation/AddIn/KeyinTree.xsd"&gt;
+        &lt;RootKeyinTable ID="root"&gt;
+            &lt;Keyword SubtableRef="Commands" CommandWord="HelloWorld"&gt;
+                &lt;Options Required="true" /&gt;
+            &lt;/Keyword&gt;
+         &lt;/RootKeyinTable&gt;
+
+        &lt;SubKeyinTables&gt;
+            &lt;KeyinTable ID="Commands"&gt;
+            &lt;Keyword SubtableRef="OpenCmd" CommandWord="List"&gt;
+                &lt;Options Required="true" /&gt;
+            &lt;/Keyword&gt;
+            &lt;/KeyinTable&gt;
+
+            &lt;KeyinTable ID="OpenCmd"&gt;
+            &lt;Keyword CommandWord="Open"/&gt;
+            &lt;/KeyinTable&gt;
+        &lt;/SubKeyinTables&gt;
+
+        &lt;KeyinHandlers&gt;
+            &lt;KeyinHandler Keyin="HelloWorld List Open"
+                          Function="HelloWorld.KeyIn.CmdOpen"/&gt;
+        &lt;/KeyinHandlers&gt;
+    &lt;/KeyinTree&gt;
+                                </pre>
+                            </p>
+                            <p>
+                                3.设置command.xml属性，高级/生成操作(Embeded Resource)："嵌入资源"<br>
+                                4.用文本编译器，打开当前项目的配置文件.csproj，修改 <br>
+                                <pre>
+    &lt;EmbeddedResource Include="command.xml" &gt;
+        &lt;LogicalName>CommandTable.xml&lt;/LogicalName&gt;
+        &lt;SubType>Designer&lt;/SubType&gt;
+     &lt;/EmbeddedResource&gt;
+                                 </pre>
+                            </p>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>7.生成、运行</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+</div><!-- .animated -->
+</div><!-- .content -->
+    <div class="clearfix"></div>
+</div><!-- /#right-panel -->
+
+<!-- Right Panel -->
+
+</body>
+</html>

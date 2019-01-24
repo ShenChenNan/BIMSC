@@ -1,49 +1,175 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
-    <meta charset="UTF-8">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-    <!--<meta http-equiv="X-UA-Compatible" content="ie=edge">-->
-    <title>BIM与智慧城市技术研究院</title>
-    <script src="./js/jquery-3.3.1.min.js"></script>
-</head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bentley开发培训</title>
+    <meta name="description" content="Bentley开发培训">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+ </head>
 
 <body>
-    1.新建类文件 .Net Framework 4.6.1 2.解决方案平台 x64 3.项目属性 生成/输出路径：D:\Work\DLLs 因为输出路径不在MS安装目录中，所以需要配置MS加载插件的环境变量 C:\Program Files\Bentley\MicroStation CONNECT Edition\MicroStation\config\appl中添加myDllPath.cfg，内容为： MS_ADDINPATH > D:/Work/DLLs MS_ADDIN_DEPENDENCYPATH
-    > D:/Work/DLLs #_USTN_REQUIREDAPPS > 01test.dll //设置需要自动加载的dll 调试/启动外部程序：microstation.exe 4.添加引用 引用属性/复制本地：false 5.主函数入口 public sealed class HelloWorldAddin : AddIn { public static HelloWorldAddin addin = null; public HelloWorldAddin(IntPtr mdlDescriptor)
-    : base(mdlDescriptor) { addin = this; } protected override int Run(string[] commandLine) { return 0; } } 6.添加命令 步骤： 1.在当前项目中添加command.xml文件 2.完成command.xml
-    <?xml version="1.0" encoding="utf-8" ?>
-    <KeyinTree xmlns="http://www.bentley.com/schemas/1.0/MicroStation/AddIn/KeyinTree.xsd">
-        <RootKeyinTable ID="root">
-            <Keyword SubtableRef="Commands" CommandWord="HelloWorld">
-                <Options Required="true" />
-            </Keyword>
-        </RootKeyinTable>
-
-        <SubKeyinTables>
-            <KeyinTable ID="Commands">
-                <Keyword SubtableRef="OpenCmd" CommandWord="List">
-                    <Options Required="true" />
-                </Keyword>
-            </KeyinTable>
-
-            <KeyinTable ID="OpenCmd">
-                <Keyword CommandWord="Open" />
-            </KeyinTable>
-        </SubKeyinTables>
-
-        <KeyinHandlers>
-            <KeyinHandler Keyin="HelloWorld List Open" Function="HelloWorld.KeyIn.CmdOpen" />
-        </KeyinHandlers>
-    </KeyinTree>
-    3.设置command.xml属性，高级/生成操作(Embeded Resource)："嵌入资源" 4.用文本编译器，打开当前项目的配置文件.csproj，修改
-    <EmbeddedResource Include="command.xml">
-        <LogicalName>CommandTable.xml</LogicalName>
-        <SubType>Designer</SubType>
-    </EmbeddedResource>
-
-    7.生成，运行
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="menu-title">Bentley开发</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children">
+                        <a href="environment-construction.html" >开发环境搭建</a>
+                    <!--<li><a href="forms-advanced.html">开发环境搭建</a></li>-->
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header">
+            <div class="top-left">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Logo"></a>
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="header-menu">
+                    <div class="header-left">
+                        <button class="search-trigger"><i class="fa fa-search"></i></button>
+                        <div class="form-inline">
+                            <form class="search-form">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- /#header -->
+        <!-- Content -->
+        <div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <div class="clearfix"></div>
+                <!-- Orders -->
+                <div class="orders">
+                    <div class="row">
+                        <div class="col-xl-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="box-title">Orders </h4>
+                                </div>
+                                <div class="card-body--">
+                                    <div class="table-stats order-table ov-h">
+                                        <table class="table ">
+                                            <thead>
+                                                <tr>
+                                                    <th class="serial">#</th>
+                                                    <th class="avatar">Avatar</th>
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Product</th>
+                                                    <th>Quantity</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="serial">1.</td>
+                                                    <td class="avatar">
+                                                        <div class="round-img">
+                                                            <!--<a href="#"><img class="rounded-circle" src="images/avatar/1.jpg" alt=""></a>-->
+                                                        </div>
+                                                    </td>
+                                                    <td> #5469 </td>
+                                                    <td>  <span class="name">Louis Stanley</span> </td>
+                                                    <td> <span class="product">iMax</span> </td>
+                                                    <td><span class="count">231</span></td>
+                                                    <td>
+                                                        <span class="badge badge-complete">Complete</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="serial">2.</td>
+                                                    <td class="avatar">
+                                                        <div class="round-img">
+                                                            <!--<a href="#"><img class="rounded-circle" src="images/avatar/2.jpg" alt=""></a>-->
+                                                        </div>
+                                                    </td>
+                                                    <td> #5468 </td>
+                                                    <td>  <span class="name">Gregory Dixon</span> </td>
+                                                    <td> <span class="product">iPad</span> </td>
+                                                    <td><span class="count">250</span></td>
+                                                    <td>
+                                                        <span class="badge badge-complete">Complete</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="serial">3.</td>
+                                                    <td class="avatar">
+                                                        <div class="round-img">
+                                                            <!--<a href="#"><img class="rounded-circle" src="images/avatar/3.jpg" alt=""></a>-->
+                                                        </div>
+                                                    </td>
+                                                    <td> #5467 </td>
+                                                    <td>  <span class="name">Catherine Dixon</span> </td>
+                                                    <td> <span class="product">SSD</span> </td>
+                                                    <td><span class="count">250</span></td>
+                                                    <td>
+                                                        <span class="badge badge-complete">Complete</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="serial">4.</td>
+                                                    <td class="avatar">
+                                                        <div class="round-img">
+                                                            <!--<a href="#"><img class="rounded-circle" src="images/avatar/4.jpg" alt=""></a>-->
+                                                        </div>
+                                                    </td>
+                                                    <td> #5466 </td>
+                                                    <td>  <span class="name">Mary Silva</span> </td>
+                                                    <td> <span class="product">Magic Mouse</span> </td>
+                                                    <td><span class="count">250</span></td>
+                                                    <td>
+                                                        <span class="badge badge-pending">Pending</span>
+                                                    </td>
+                                                </tr>
+                                                <tr class=" pb-0">
+                                                    <td class="serial">5.</td>
+                                                    <td class="avatar pb-0">
+                                                        <div class="round-img">
+                                                            <!--<a href="#"><img class="rounded-circle" src="images/avatar/6.jpg" alt=""></a>-->
+                                                        </div>
+                                                    </td>
+                                                    <td> #5465 </td>
+                                                    <td>  <span class="name">Johnny Stephens</span> </td>
+                                                    <td> <span class="product">Monitor</span> </td>
+                                                    <td><span class="count">250</span></td>
+                                                    <td>
+                                                        <span class="badge badge-complete">Complete</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- /.table-stats -->
+                                </div>
+                            </div> <!-- /.card -->
+                        </div>  <!-- /.col-lg-8 -->
+                </div> <!row>
+                </div><!-- /.orders -->
+            </div><!-- .animated -->
+        </div>
+        <!-- /.content -->
+        <div class="clearfix"></div>
+    </div>
+    <!-- /#right-panel -->
 </body>
-
 </html>
